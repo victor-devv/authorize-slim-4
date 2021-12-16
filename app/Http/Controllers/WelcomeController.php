@@ -3,28 +3,20 @@
 
 namespace App\Http\Controllers;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Support\View;
+
 class WelcomeController
 {
-    public function index($response)
+    public function index(View $view)
     {
-        $response->getBody()->write('Welcome Controller, world');
-
-        return $response;
+        return $view('auth.home', [
+            'name' => 'Victor Devv'
+        ]);
     }
 
-    public function show($response, $name)
+    public function show(View $view, $name, $id)
     {
-        $response->getBody()->write("Welcome {$name}");
-
-        return $response;
+        return $view('user.show', compact('name', 'id'));
     }
 
-    public function showId(Request $request, Response $response, $name, $id)
-    {
-        $response->getBody()->write("Welcome {$name}, you have an id of {$id}");
-
-        return $response;
-    }
 }
