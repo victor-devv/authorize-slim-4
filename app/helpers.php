@@ -1,8 +1,6 @@
 <?php
 
 //Global Helper Functions
-use Jenssegers\Blade\Blade;
-use Psr\Http\Message\ResponseInterface as Response;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -249,5 +247,17 @@ if (! function_exists('data_set')) {
         }
 
         return $target;
+    }
+}
+
+if (!function_exists('env'))
+{
+    function env($key, $default = false)
+    {
+        $value = getenv($key);
+
+        throw_when(!$value and !$default, "{$key} is not a defined .env variable and has not default value");
+
+        return $value or $default;
     }
 }

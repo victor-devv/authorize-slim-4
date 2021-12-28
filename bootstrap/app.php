@@ -1,11 +1,18 @@
 <?php
 
 use DI\Container;
-use DI\Bridge\Slim\Bridge as SlimAppFactory; //will bridge slim app with service container
-use App\Providers\ServiceProvider;
+use App\Http\HttpKernel;
+use DI\Bridge\Slim\Bridge as App; //will bridge slim app with service container
 
-$app = SlimAppFactory::create(new Container);
+//use Slim\HttpCache\Cache;
+//use Slim\HttpCache\CacheProvider;
 
-ServiceProvider::setup($app, config('app.providers'));
+$app = App::create(new Container);
+return HttpKernel::bootstrap($app)->getApplication();
 
-return $app;
+
+//caching
+//$app->add(new Cache('public', 86400));
+//
+//$cache = new CacheProvider();
+
