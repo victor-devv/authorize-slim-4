@@ -3,11 +3,12 @@
 
 namespace App\Http\Middleware;
 
-use Slim\Psr7\Response;
-use Psr\Http\Server\RequestHandlerInterface as Handle;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
-class ExampleBeforeMiddleware
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface as Handle;
+use Slim\Psr7\Response;
+
+class ExampleWebMiddleware
 {
     public function __invoke(Request $request, Handle $handler) : Response
     {
@@ -15,7 +16,7 @@ class ExampleBeforeMiddleware
         $existingBody = (string) $response->getBody();
 
         $response = new Response;
-        $response->getBody()->write("Before Middleware: {$existingBody}");
+        $response->getBody()->write("\n Web Middleware: {$existingBody}");
 
         return $response;
     }
